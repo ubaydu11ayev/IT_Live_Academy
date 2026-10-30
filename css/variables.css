@@ -1,0 +1,116 @@
+/* ==========================================================================
+   CSS Custom Properties & Design Tokens
+   IT LIVE Academy Admin Dashboard
+   ========================================================================== */
+
+:root {
+  /* Brand & Dark Navy Palette (Default) */
+  --bg: #0a1530;
+  --sidebar: #0d1b3d;
+  --sidebar-active: #2f6bff;
+  --card: #11224a;
+  --card-hover: #142858;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-focus: #2f6bff;
+  --divider: rgba(255, 255, 255, 0.08);
+
+  /* Primary Accent & States */
+  --primary: #2f6bff;
+  --primary-hover: #2257dc;
+  --primary-glow: rgba(47, 107, 255, 0.35);
+  --primary-light: rgba(47, 107, 255, 0.12);
+
+  /* Typography Colors */
+  --text: #e8eefc;
+  --text-secondary: #c2d1ed;
+  --muted: #8fa3cc;
+  --muted-dark: #62769f;
+
+  /* Semantic Status Colors */
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.12);
+  --purple: #8b5cf6;
+  --purple-bg: rgba(139, 92, 246, 0.12);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --info: #06b6d4;
+  --info-bg: rgba(6, 182, 212, 0.12);
+
+  /* Red IT Badge */
+  --badge-it-bg: #dc2626;
+
+  /* Spacing Scale (8px system) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.84375rem; /* 13.5px */
+  --font-size-md: 0.9375rem;  /* 15px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 4px 16px rgba(2, 6, 23, 0.4);
+
+  /* Layout dimensions */
+  --sidebar-width: 240px;
+  --topbar-height: 64px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --bg: #f4f6fa;
+  --sidebar: #ffffff;
+  --sidebar-active: #2f6bff;
+  --card: #ffffff;
+  --card-hover: #f8fafc;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-focus: #2f6bff;
+  --divider: rgba(15, 23, 42, 0.06);
+
+  --primary: #2f6bff;
+  --primary-hover: #2257dc;
+  --primary-glow: rgba(47, 107, 255, 0.25);
+  --primary-light: rgba(47, 107, 255, 0.1);
+
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --muted: #64748b;
+  --muted-dark: #94a3b8;
+
+  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
+}
+
