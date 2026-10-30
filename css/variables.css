@@ -1,24 +1,33 @@
 /* ==========================================================================
-   CSS Custom Properties & Design Tokens
+   CSS Custom Properties & Design Tokens (Neumorphic Soft UI)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
 :root {
-  /* Brand & Dark Navy Palette (Default) */
-  --bg: #0a1530;
-  --sidebar: #0d1b3d;
+  /* Brand & Dark Navy Neumorphic Palette */
+  --bg: #0c1733;
+  --sidebar: #09122a;
   --sidebar-active: #2f6bff;
-  --card: #11224a;
-  --card-hover: #142858;
-  --border: rgba(255, 255, 255, 0.06);
+  --card: #0f1c3d;
+  --card-hover: #12224a;
+  --border: rgba(255, 255, 255, 0.05);
   --border-focus: #2f6bff;
-  --divider: rgba(255, 255, 255, 0.08);
+  --divider: rgba(255, 255, 255, 0.07);
+
+  /* Neumorphic Shadows (Dark Mode) */
+  --nm-flat: 6px 6px 14px rgba(3, 7, 18, 0.75), -5px -5px 12px rgba(30, 52, 106, 0.4);
+  --nm-flat-hover: 8px 8px 20px rgba(3, 7, 18, 0.85), -7px -7px 18px rgba(38, 66, 134, 0.55);
+  --nm-pressed: inset 3px 3px 7px rgba(3, 7, 18, 0.8), inset -3px -3px 7px rgba(30, 52, 106, 0.35);
+  --nm-convex: linear-gradient(145deg, #122147, #0d1733);
+  --nm-concave: linear-gradient(145deg, #0d1733, #122147);
+  --nm-pill: 5px 5px 12px rgba(3, 7, 18, 0.7), -4px -4px 10px rgba(30, 52, 106, 0.4);
+  --nm-pill-active: inset 3px 3px 8px rgba(10, 20, 60, 0.7), inset -3px -3px 8px rgba(70, 130, 255, 0.3);
 
   /* Primary Accent & States */
   --primary: #2f6bff;
   --primary-hover: #2257dc;
-  --primary-glow: rgba(47, 107, 255, 0.35);
-  --primary-light: rgba(47, 107, 255, 0.12);
+  --primary-glow: rgba(47, 107, 255, 0.4);
+  --primary-light: rgba(47, 107, 255, 0.15);
 
   /* Typography Colors */
   --text: #e8eefc;
@@ -28,15 +37,15 @@
 
   /* Semantic Status Colors */
   --success: #22c55e;
-  --success-bg: rgba(34, 197, 94, 0.12);
+  --success-bg: rgba(34, 197, 94, 0.14);
   --purple: #8b5cf6;
-  --purple-bg: rgba(139, 92, 246, 0.12);
+  --purple-bg: rgba(139, 92, 246, 0.14);
   --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning-bg: rgba(245, 158, 11, 0.14);
   --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.12);
+  --danger-bg: rgba(239, 68, 68, 0.14);
   --info: #06b6d4;
-  --info-bg: rgba(6, 182, 212, 0.12);
+  --info-bg: rgba(6, 182, 212, 0.14);
 
   /* Red IT Badge */
   --badge-it-bg: #dc2626;
@@ -53,7 +62,7 @@
   --space-12: 48px;
 
   /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-size-xs: 0.75rem;    /* 12px */
   --font-size-sm: 0.84375rem; /* 13.5px */
   --font-size-md: 0.9375rem;  /* 15px */
@@ -64,18 +73,12 @@
   --font-size-3xl: 1.875rem;  /* 30px */
 
   /* Border Radii */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
   --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
-  --shadow-card: 0 4px 16px rgba(2, 6, 23, 0.4);
 
   /* Layout dimensions */
   --sidebar-width: 240px;
@@ -87,30 +90,33 @@
   --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Light Mode Overrides */
+/* Light Neumorphic Mode */
 [data-theme="light"] {
-  --bg: #f4f6fa;
-  --sidebar: #ffffff;
+  --bg: #e6eef8;
+  --sidebar: #edf2f9;
   --sidebar-active: #2f6bff;
-  --card: #ffffff;
-  --card-hover: #f8fafc;
-  --border: rgba(15, 23, 42, 0.08);
+  --card: #e6eef8;
+  --card-hover: #eaf1fa;
+  --border: rgba(163, 177, 198, 0.25);
   --border-focus: #2f6bff;
-  --divider: rgba(15, 23, 42, 0.06);
+  --divider: rgba(163, 177, 198, 0.3);
+
+  /* Neumorphic Shadows (Light Mode) */
+  --nm-flat: 7px 7px 16px rgba(163, 177, 198, 0.6), -7px -7px 16px rgba(255, 255, 255, 0.85);
+  --nm-flat-hover: 9px 9px 20px rgba(163, 177, 198, 0.75), -9px -9px 20px rgba(255, 255, 255, 0.95);
+  --nm-pressed: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.85);
+  --nm-convex: linear-gradient(145deg, #f0f6ff, #dbe4f1);
+  --nm-concave: linear-gradient(145deg, #dbe4f1, #f0f6ff);
+  --nm-pill: 5px 5px 12px rgba(163, 177, 198, 0.55), -5px -5px 12px rgba(255, 255, 255, 0.85);
+  --nm-pill-active: inset 3px 3px 6px rgba(163, 177, 198, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.9);
 
   --primary: #2f6bff;
   --primary-hover: #2257dc;
   --primary-glow: rgba(47, 107, 255, 0.25);
-  --primary-light: rgba(47, 107, 255, 0.1);
+  --primary-light: rgba(47, 107, 255, 0.12);
 
-  --text: #0f172a;
-  --text-secondary: #334155;
-  --muted: #64748b;
-  --muted-dark: #94a3b8;
-
-  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
-  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
+  --text: #1a253c;
+  --text-secondary: #3b4d6e;
+  --muted: #6b7c9e;
+  --muted-dark: #8c9cb6;
 }
-

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Page-Specific Layouts & Views
+   Page-Specific Layouts (Neumorphic Dashboard + User Cabinet & 5 Roles)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -98,6 +98,220 @@
 }
 
 /* --------------------------------------------------------------------------
+   USER CABINET & 5 ROLES (Matching Image 1 & Image 2)
+   -------------------------------------------------------------------------- */
+.cabinet-window-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--nm-flat-hover);
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.cabinet-window-header {
+  height: 48px;
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5);
+  user-select: none;
+}
+
+.window-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.window-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #f59e0b; }
+.dot-green { background-color: #22c55e; }
+
+.cabinet-window-title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.cabinet-window-body {
+  padding: var(--space-8) var(--space-6);
+  background: var(--bg);
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-5);
+}
+
+.role-card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--nm-flat);
+  transition: all var(--transition-normal);
+  position: relative;
+  user-select: none;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--nm-flat-hover);
+  border-color: rgba(47, 107, 255, 0.35);
+}
+
+.role-card.active {
+  border-color: var(--primary);
+  background: var(--nm-concave);
+  box-shadow: var(--nm-pressed), 0 0 16px var(--primary-glow);
+}
+
+.role-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  background: var(--card);
+  box-shadow: var(--nm-pill);
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.role-card:hover .role-icon-box {
+  transform: scale(1.05);
+}
+
+.role-icon-box svg {
+  width: 36px;
+  height: 36px;
+}
+
+.role-card-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.role-card-desc {
+  font-size: var(--font-size-xs);
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.role-card-status {
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   Student Cabinet (Homework / Uyga Vazifalar)
+   -------------------------------------------------------------------------- */
+.student-homework-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.homework-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--nm-convex);
+  box-shadow: var(--nm-pill);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.homework-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.homework-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  box-shadow: var(--nm-pressed);
+  color: var(--success);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.homework-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.homework-course {
+  font-size: var(--font-size-xs);
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Blocked Account View
+   -------------------------------------------------------------------------- */
+.blocked-card {
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+  max-width: 600px;
+  margin: 0 auto;
+  border: 2px dashed rgba(239, 68, 68, 0.4);
+}
+
+.blocked-icon-large {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--nm-pill);
+  margin-bottom: var(--space-5);
+}
+
+.blocked-icon-large svg {
+  width: 44px;
+  height: 44px;
+}
+
+/* --------------------------------------------------------------------------
    Students Page
    -------------------------------------------------------------------------- */
 .page-header {
@@ -156,6 +370,8 @@
   flex-direction: column;
   justify-content: space-between;
   padding: var(--space-5);
+  background: var(--nm-convex);
+  box-shadow: var(--nm-flat);
 }
 
 .course-header {
@@ -192,7 +408,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .course-meta-row {
@@ -241,29 +458,20 @@
 
 .progress-track {
   width: 100%;
-  height: 6px;
-  background-color: rgba(255, 255, 255, 0.08);
+  height: 8px;
+  background-color: var(--card);
+  box-shadow: var(--nm-pressed);
   border-radius: var(--radius-full);
   overflow: hidden;
-}
-
-[data-theme="light"] .progress-track {
-  background-color: rgba(15, 23, 42, 0.1);
+  padding: 1px;
 }
 
 .progress-fill {
   height: 100%;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--primary), #60a5fa);
+  background: linear-gradient(90deg, #2f6bff, #60a5fa);
+  box-shadow: 0 0 6px rgba(47, 107, 255, 0.5);
   transition: width 0.4s ease;
-}
-
-.course-footer-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  padding-top: var(--space-2);
 }
 
 /* --------------------------------------------------------------------------
@@ -278,16 +486,17 @@
 .date-range-pills {
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
+  background-color: var(--card);
+  box-shadow: var(--nm-pressed);
   border-radius: var(--radius-md);
-  padding: 3px;
+  padding: 4px;
+  gap: 4px;
 }
 
 .pill-btn {
   padding: 6px 14px;
   font-size: var(--font-size-xs);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--muted);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -295,10 +504,9 @@
 }
 
 .pill-btn.active {
-  background-color: var(--primary);
+  background: var(--primary);
   color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 2px 6px var(--primary-glow);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 /* --------------------------------------------------------------------------
@@ -318,17 +526,17 @@
 }
 
 .avatar-large {
-  width: 68px;
-  height: 68px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--purple));
   color: #ffffff;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4), -3px -3px 8px rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -343,6 +551,8 @@
   padding: var(--space-4);
   border-radius: var(--radius-md);
   border: 2px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--nm-pill);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -352,16 +562,16 @@
 }
 
 .theme-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--nm-flat-hover);
 }
 
 .theme-card.active {
   border-color: var(--primary);
-  background-color: var(--primary-light);
+  box-shadow: var(--nm-pressed);
 }
 
 .theme-icon {
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .theme-label {
@@ -393,12 +603,12 @@
 
 .login-card {
   width: 100%;
-  max-width: 420px;
-  background-color: var(--sidebar);
+  max-width: 440px;
+  background-color: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: var(--space-8);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--nm-flat-hover);
   text-align: center;
 }
 
@@ -415,6 +625,20 @@
   margin-bottom: var(--space-6);
 }
 
+.quick-role-logins {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.quick-role-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
 /* --------------------------------------------------------------------------
    Responsive Adaptations
    -------------------------------------------------------------------------- */
@@ -426,11 +650,23 @@
   .charts-grid-row2 {
     grid-template-columns: 1fr;
   }
+
+  .roles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .student-homework-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .roles-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .filter-bar {
@@ -455,3 +691,8 @@
   }
 }
 
+@media (max-width: 420px) {
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+}
