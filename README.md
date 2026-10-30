@@ -28,7 +28,24 @@ Designed with standard HTML5, CSS3 (Custom Properties, CSS Grid, Flexbox), vanil
 
 ## Features
 
-### 1. Sidebar & Navigation
+### 1. Neumorphic Design System (Soft UI)
+- **Signature Tactile Surfaces**: Dual opposing box-shadows (`--nm-flat`, `--nm-pressed`, `--nm-convex`, `--nm-concave`, `--nm-pill`) creating embossed and debossed physical depth.
+- **Dark Navy Neumorphism**: Deep navy backgrounds (`#0c1733`, `#0f1c3d`) with soft luminescent highlights and deep drop shadows.
+- **Soft Light Neumorphism**: Crisp modern soft-gray palette (`#e6eef8`) with realistic shadow diffusion.
+- **Interactive States**: Buttons physically depress with inset shadows on click/active states.
+
+### 2. User Cabinet & 5 Roles (Image 1 & 2)
+- **macOS Window Interface**: Styled container with colored traffic light dots (red, yellow, green) and centered title.
+- **5 Dynamic Roles**:
+  1. **👑 Admin**: Full system control (Dashboard, Students directory, Courses catalog, Analytics, Settings).
+  2. **🎓 Student**: Student Cabinet featuring active course progress and **"Uyga vazifalar"** (homework assignments checklist matching Image 2 with submit homework modal).
+  3. **👨‍🏫 Mentor**: Teacher Cabinet for reviewing student homework submissions and assigning grades with feedback.
+  4. **👤 Guest**: Restricted visitor portal with public course previews and registration prompts.
+  5. **🚫 Blocked**: Restricted account state with warning, reason explanation, support contact, and unlock simulator.
+- **Role Switcher Menu**: Accessible anytime from the topbar header dropdown or the User Cabinet cards.
+- **Quick Role Logins**: 1-click role logins on the sign-in screen for instant testing.
+
+### 3. Sidebar & Navigation
 - **Branding**: Custom HTML/CSS logo badge (red rounded `IT` badge + white `LIVE ACADEMY` typography).
 - **Navigation Items**: Inline SVG icons for Dashboard, Students, Courses, Analytics, Settings, and Logout.
 - **Active State**: Solid vibrant blue (`#2f6bff`) rounded pill with glowing shadow.

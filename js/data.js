@@ -1,6 +1,128 @@
 /* ==========================================================================
-   Initial Seed Data for IT LIVE Academy
+   Initial Seed Data for IT LIVE Academy (Neumorphic & 5 Roles Edition)
    ========================================================================== */
+
+export const ROLES = {
+  admin: {
+    id: "admin",
+    name: "Alisher Qosimov",
+    roleTitle: "Head Administrator",
+    roleLabel: "Admin",
+    badgeClass: "role-badge-admin",
+    avatar: "AQ",
+    description: "To'liq boshqaruv huquqiga ega tizim ma'muri.",
+    permissions: ["dashboard", "students", "courses", "analytics", "settings", "cabinet"]
+  },
+  student: {
+    id: "student",
+    name: "Sardor Rahimov",
+    roleTitle: "Python Backend Talabasi",
+    roleLabel: "Student",
+    badgeClass: "role-badge-student",
+    avatar: "SR",
+    description: "Kurslar o'rganuvchisi, uyga vazifalar topshiradi va reytingini kuzatadi.",
+    permissions: ["cabinet", "courses", "settings"]
+  },
+  mentor: {
+    id: "mentor",
+    name: "Anvar Narzullaev",
+    roleTitle: "Lead Mentor & Instructor",
+    roleLabel: "Mentor",
+    badgeClass: "role-badge-mentor",
+    avatar: "AN",
+    description: "Talabalarga dars beradi, uyga vazifalarni tekshiradi va baholaydi.",
+    permissions: ["cabinet", "courses", "students", "settings"]
+  },
+  guest: {
+    id: "guest",
+    name: "Mehmon Foydalanuvchi",
+    roleTitle: "Guest / Visitor",
+    roleLabel: "Guest",
+    badgeClass: "role-badge-guest",
+    avatar: "MF",
+    description: "Cheklangan mehmon rejimi. Faqat ochiq kurslarni ko'rishi mumkin.",
+    permissions: ["cabinet", "courses"]
+  },
+  blocked: {
+    id: "blocked",
+    name: "Jasur Qobilov",
+    roleTitle: "Account Blocked",
+    roleLabel: "Blocked",
+    badgeClass: "role-badge-blocked",
+    avatar: "JQ",
+    description: "Akkaunt qoidabuzarlik yoki to'lov muddati o'tganligi sababli bloklangan.",
+    permissions: ["cabinet"]
+  }
+};
+
+export const INITIAL_HOMEWORK = [
+  {
+    id: "hw-1",
+    course: "Python Backend (Django & FastAPI)",
+    title: "24-topshiriq: Login/Logout va rol menyusini qo'shish (3 commit)",
+    status: "In Progress",
+    deadline: "Bugun, 23:59",
+    score: null,
+    submittedDate: null
+  },
+  {
+    id: "hw-2",
+    course: "Frontend Development (React & Next.js)",
+    title: "23-topshiriq: Neumorphism shaklidagi UI interfeys yaratish",
+    status: "Completed",
+    deadline: "28-Oktabr",
+    score: "100 / 100",
+    submittedDate: "2024-10-28"
+  },
+  {
+    id: "hw-3",
+    course: "Python Backend (Django & FastAPI)",
+    title: "22-topshiriq: PostgreSQL Database Schema va Migrations",
+    status: "Under Review",
+    deadline: "26-Oktabr",
+    score: "Kutilmoqda",
+    submittedDate: "2024-10-26"
+  },
+  {
+    id: "hw-4",
+    course: "UI/UX Design Masterclass (Figma)",
+    title: "21-topshiriq: User Cabinet va 5 Role uchun vizual prototip",
+    status: "Completed",
+    deadline: "24-Oktabr",
+    score: "95 / 100",
+    submittedDate: "2024-10-24"
+  }
+];
+
+export const INITIAL_MENTOR_SUBMISSIONS = [
+  {
+    id: "sub-1",
+    studentName: "Sardor Rahimov",
+    course: "Python Backend",
+    task: "Login/Logout va rol menyusi",
+    date: "Bugun, 14:20",
+    status: "Pending",
+    githubUrl: "https://github.com/itlive/student-project"
+  },
+  {
+    id: "sub-2",
+    studentName: "Dilnoza Alimova",
+    course: "UI/UX Design",
+    task: "Neumorphic User Cabinet prototipi",
+    date: "Bugun, 12:45",
+    status: "Pending",
+    githubUrl: "https://figma.com/file/sample"
+  },
+  {
+    id: "sub-3",
+    studentName: "Jasurbek Umarov",
+    course: "Frontend Development",
+    task: "Chart.js grafiklar integratsiyasi",
+    date: "Kecha, 18:30",
+    status: "Reviewed",
+    githubUrl: "https://github.com/jasur/frontend-app"
+  }
+];
 
 export const INITIAL_STUDENTS = [
   {
@@ -225,9 +347,7 @@ export const INITIAL_STUDENTS = [
   }
 ];
 
-// 20 courses perfectly distributed: 8 Dev (40%), 5 Design (25%), 4 Biz (20%), 3 Other (15%)
 export const INITIAL_COURSES = [
-  // 1-8: Development (40%)
   {
     id: "crs-001",
     title: "Python Backend (Django & FastAPI)",
@@ -316,8 +436,6 @@ export const INITIAL_COURSES = [
     completionRate: 82,
     status: "Active"
   },
-
-  // 9-13: Design (25%)
   {
     id: "crs-009",
     title: "UI/UX Design Masterclass (Figma)",
@@ -373,8 +491,6 @@ export const INITIAL_COURSES = [
     completionRate: 87,
     status: "Active"
   },
-
-  // 14-17: Business (20%)
   {
     id: "crs-014",
     title: "SMM & Targeted Digital Marketing",
@@ -419,8 +535,6 @@ export const INITIAL_COURSES = [
     completionRate: 82,
     status: "Active"
   },
-
-  // 18-20: Other (15%)
   {
     id: "crs-018",
     title: "DevOps & Cloud Infrastructure (Docker, K8s)",
@@ -469,44 +583,37 @@ export const INITIAL_STATS = {
 
 export const INITIAL_CHARTS_DATA = {
   months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-  // Match the stepped bar height from photo: 0 to 1000 range
   studentsOverview: [320, 480, 620, 750, 840, 920, 980],
   categories: {
     labels: ["Development", "Design", "Business", "Other"],
     values: [40, 25, 20, 15],
     colors: ["#2f6bff", "#8b5cf6", "#22c55e", "#64748b"]
   },
-  // Curved wave matching photo: crest at Feb (~17k), dip at Mar/Apr (~14k), wave at May (~21k), dip at Jun (~18k), peak at Jul ($24,560)
   revenueOverview: [11000, 18500, 13800, 19200, 15800, 21400, 24560]
 };
 
 export const INITIAL_NOTIFICATIONS = [
   {
     id: "notif-1",
-    title: "New Student Enrolled",
-    message: "Sardor Rahimov enrolled in Python Backend.",
-    time: "10 minutes ago",
+    title: "Yangi topshiriq yuklandi",
+    message: "24-Uyga vazifa: Login/logout va rol menyusi qo'shildi.",
+    time: "10 daqiqa oldin",
     read: false
   },
   {
     id: "notif-2",
-    title: "Course Updated",
-    message: "React & Next.js syllabus updated to v15.",
-    time: "2 hours ago",
+    title: "Uyga vazifa baholandi",
+    message: "Neumorphism prototipi uchun 100/100 ball qo'yildi.",
+    time: "2 soat oldin",
     read: false
   },
   {
     id: "notif-3",
-    title: "Monthly Milestone Reached",
-    message: "Total revenue exceeded $24,000 for this month!",
-    time: "1 day ago",
+    title: "Oylik maqsadga erishildi",
+    message: "Oylik tushum $24,560 dan oshdi!",
+    time: "1 kun oldin",
     read: false
   }
 ];
 
-export const INITIAL_USER = {
-  name: "Alisher Qosimov",
-  email: "admin@itlive.uz",
-  role: "Head Administrator",
-  initials: "AQ"
-};
+export const INITIAL_USER = ROLES.admin;

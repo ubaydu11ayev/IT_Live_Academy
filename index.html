@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="uz" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IT LIVE Academy - Admin Dashboard</title>
+  <title>IT LIVE Academy - Neumorphic Admin Dashboard & User Cabinet</title>
   
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23dc2626'/><text x='50%' y='68%' font-family='Arial,sans-serif' font-weight='bold' font-size='55' fill='white' text-anchor='middle'>IT</text></svg>">
 
-  <!-- CSS Stylesheets -->
+  <!-- CSS Stylesheets (Neumorphic System) -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -45,6 +45,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           <span>Dashboard</span>
         </a>
+        <a href="#cabinet" class="nav-item" id="nav-cabinet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span>User Cabinet</span>
+        </a>
         <a href="#students" class="nav-item" id="nav-students">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Students</span>
@@ -71,10 +75,10 @@
       </div>
     </aside>
 
-    <!-- Main Shell: Topbar + Dynamic Content -->
+    <!-- Main Shell -->
     <div class="main-shell">
       
-      <!-- Topbar Header -->
+      <!-- Topbar Header with Role Switcher Menu -->
       <header class="topbar">
         <div class="topbar-left">
           <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
@@ -86,6 +90,19 @@
         </div>
 
         <div class="topbar-right">
+          
+          <!-- 5 Role Switcher Dropdown (Matching Image 1 & 2) -->
+          <div class="dropdown-wrapper">
+            <button class="role-switcher-btn" id="role-switcher-btn" aria-label="Rolni almashtirish" title="Rolni almashtirish">
+              <span class="role-badge-tag role-badge-admin" id="current-role-badge">Admin</span>
+              <span class="role-text-label" id="current-role-text">Alisher Qosimov</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="dropdown-menu" id="role-menu-dropdown">
+              <!-- Populated dynamically with 5 roles -->
+            </div>
+          </div>
+
           <!-- Notification Bell Dropdown -->
           <div class="dropdown-wrapper">
             <button class="icon-btn-badge" id="notifications-btn" aria-label="Notifications" title="Notifications">
@@ -94,8 +111,8 @@
             </button>
             <div class="dropdown-menu notification-menu" id="notifications-dropdown">
               <div class="notification-header">
-                <span class="notification-title">Notifications</span>
-                <button class="btn btn-ghost" style="padding: 2px 6px; font-size: 11px;" id="mark-notifications-read-btn">Mark all read</button>
+                <span class="notification-title">Xabarnomalar</span>
+                <button class="btn btn-ghost" style="padding: 2px 6px; font-size: 11px;" id="mark-notifications-read-btn">Barchasini o'qish</button>
               </div>
               <ul class="notification-list" id="notification-list">
                 <!-- Injected dynamically -->
@@ -113,14 +130,18 @@
               </div>
             </button>
             <div class="dropdown-menu" id="user-dropdown">
+              <a href="#cabinet" class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span>User Cabinet (5 Roles)</span>
+              </a>
               <a href="#settings" class="dropdown-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>Profile Settings</span>
+                <span>Profil sozlamalari</span>
               </a>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item danger" data-action="logout" style="width: 100%;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                <span>Logout</span>
+                <span>Chiqish</span>
               </button>
             </div>
           </div>
@@ -129,6 +150,166 @@
 
       <!-- Main Content Scroll Area -->
       <main class="main-content" id="main-content">
+
+        <!-- ================================================================
+             VIEW 0: USER CABINET (Matching Image 1: 5 Roles)
+             ================================================================ -->
+        <section class="page-view" id="view-cabinet" style="display: none;">
+          <div class="cabinet-window-card">
+            <div class="cabinet-window-header">
+              <div class="window-dots">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+              <div class="cabinet-window-title">User Cabinet</div>
+              <div style="width: 48px;"></div>
+            </div>
+            
+            <div class="cabinet-window-body">
+              <div style="text-align: center; margin-bottom: 24px;">
+                <h2 style="font-size: 20px; font-weight: 700;">Turli holatga mos interfeys (5 Role)</h2>
+                <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+                  Istalgan rolni bosing va unga moslashgan interfeysni sinab ko'ring
+                </p>
+              </div>
+
+              <!-- 5 Role Cards Grid (Guest, Student, Mentor, Admin, Blocked) -->
+              <div class="roles-grid" id="roles-grid-container">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Role Interfaces -->
+          <div id="role-active-content">
+            
+            <!-- 1. ADMIN ROLE PANEL -->
+            <div id="panel-admin-role" class="card" style="display: none;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+                <div>
+                  <span class="badge role-badge-admin" style="font-size: 12px; margin-bottom: 8px;">👑 Admin Role Faol</span>
+                  <h3 style="font-size: 18px; font-weight: 700;">Boshqaruvchi Paneli</h3>
+                  <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+                    Sizga to'liq dashboard, talabalar bazasi, kurslar katalogi va analitika tizimi ochiq.
+                  </p>
+                </div>
+                <a href="#dashboard" class="btn btn-primary">Boshqaruv Dashboardiga O'tish &rarr;</a>
+              </div>
+            </div>
+
+            <!-- 2. STUDENT ROLE PANEL (Image 2: Uyga vazifa) -->
+            <div id="panel-student-role" style="display: none;">
+              <div class="card" style="margin-bottom: 24px;">
+                <span class="badge role-badge-student" style="font-size: 12px; margin-bottom: 8px;">🎓 Student Role Faol</span>
+                <h3 style="font-size: 18px; font-weight: 700;">Sardor Rahimov — Talaba Kabineti</h3>
+                <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+                  Hozirda o'rganilayotgan kurs: <strong>Python Backend (Django & FastAPI)</strong> &bull; Guruh: #PY-42
+                </p>
+              </div>
+
+              <div class="student-homework-grid">
+                <!-- Homework Panel (Uyga vazifalar) -->
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <h3 class="card-title">📝 Uyga vazifalar (24-topshiriq)</h3>
+                      <p class="card-subtitle">Bajarilgan va jarayondagi amaliy vazifalar</p>
+                    </div>
+                  </div>
+                  <div id="student-homework-list">
+                    <!-- Populated via cabinet.js -->
+                  </div>
+                </div>
+
+                <!-- Enrolled Courses Progress -->
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <h3 class="card-title">📚 Mening kurslarim</h3>
+                      <p class="card-subtitle">O'zlashtirish darajasi va darslar</p>
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="padding: 14px; background: var(--nm-convex); box-shadow: var(--nm-pill); border-radius: var(--radius-md);">
+                      <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px;">
+                        <span>Python Backend (Django & FastAPI)</span>
+                        <span style="color: var(--primary);">88%</span>
+                      </div>
+                      <div class="progress-track" style="margin: 8px 0;">
+                        <div class="progress-fill" style="width: 88%;"></div>
+                      </div>
+                      <div style="font-size: 12px; color: var(--muted);">Keyingi dars: Bugun, 19:00 (FastAPI WebSockets)</div>
+                    </div>
+
+                    <div style="padding: 14px; background: var(--nm-convex); box-shadow: var(--nm-pill); border-radius: var(--radius-md);">
+                      <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px;">
+                        <span>Frontend (React & Next.js)</span>
+                        <span style="color: var(--success);">100%</span>
+                      </div>
+                      <div class="progress-track" style="margin: 8px 0;">
+                        <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, #22c55e, #4ade80);"></div>
+                      </div>
+                      <div style="font-size: 12px; color: var(--success); font-weight: 600;">Sertifikat topshirildi!</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. MENTOR ROLE PANEL -->
+            <div id="panel-mentor-role" style="display: none;">
+              <div class="card" style="margin-bottom: 24px;">
+                <span class="badge role-badge-mentor" style="font-size: 12px; margin-bottom: 8px;">👨‍🏫 Mentor Role Faol</span>
+                <h3 style="font-size: 18px; font-weight: 700;">Anvar Narzullaev — O'qituvchi Kabineti</h3>
+                <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">
+                  Biriktirilgan kurslar: Python Backend, Django & Algorithms &bull; Faol talabalar: 310 ta
+                </p>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">📋 Tekshirilishi kerak bo'lgan uyga vazifalar</h3>
+                    <p class="card-subtitle">Talabalar yuborgan topshiriqlarni tekshiring va baholang</p>
+                  </div>
+                </div>
+                <div id="mentor-submissions-list">
+                  <!-- Populated via cabinet.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. GUEST ROLE PANEL -->
+            <div id="panel-guest-role" class="card" style="display: none; text-align: center; padding: 40px 20px;">
+              <span class="badge role-badge-guest" style="font-size: 12px; margin-bottom: 12px;">👤 Mehmon Rejimi</span>
+              <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">IT LIVE Academy platformasiga xush kelibsiz!</h3>
+              <p style="font-size: 14px; color: var(--muted); max-width: 520px; margin: 0 auto 24px;">
+                Mehmon sifatida siz ochiq kurslarni ko'rishingiz mumkin. Uyga vazifa topshirish yoki to'liq dashboard uchun ro'yxatdan o'ting yoki talaba/admin roliga o'ting.
+              </p>
+              <div style="display: flex; justify-content: center; gap: 12px;">
+                <button class="btn btn-primary" onclick="window.location.hash='#courses'">Ochiq Kurslarni Ko'rish</button>
+                <button class="btn btn-secondary" onclick="document.querySelector('[data-role=\'student\']').click()">Student Roliga O'tish</button>
+              </div>
+            </div>
+
+            <!-- 5. BLOCKED ROLE PANEL -->
+            <div id="panel-blocked-role" class="card blocked-card" style="display: none;">
+              <div class="blocked-icon-large">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="8" y1="15" x2="16" y2="15"/></svg>
+              </div>
+              <h3 style="font-size: 22px; font-weight: 800; color: var(--danger); margin-bottom: 8px;">Akkaunt Bloklangan!</h3>
+              <p style="font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 24px;">
+                Hurmatli foydalanuvchi, sizning hisobingiz to'lov muddati kechikkanligi yoki akademiyaning xavfsizlik qoidalariga zid harakat tufayli vaqtincha cheklangan.
+              </p>
+              <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="alert('Qo\'llab-quvvatlash xizmati: +998 71 200-00-00 (admin@itlive.uz)')">Qo'llab-quvvatlash bilan bog'lanish</button>
+                <button class="btn btn-primary" onclick="document.querySelector('[data-role=\'admin\']').click()">Admin Roliga Qaytish</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
 
         <!-- ================================================================
              VIEW 1: DASHBOARD
@@ -313,7 +494,7 @@
             </div>
 
             <!-- Pagination Container -->
-            <div class="pagination-container" style="padding: 16px 20px;">
+            <div class="pagination-container">
               <div class="pagination-info" id="students-pagination-info">
                 Showing 1 to 8 of 22 students
               </div>
@@ -334,7 +515,7 @@
               <p>Explore, update, and publish academy training programs</p>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-              <span class="badge badge-category" id="courses-count-badge" style="font-size: 13px; padding: 6px 14px;">12 Courses</span>
+              <span class="badge badge-category" id="courses-count-badge" style="font-size: 13px; padding: 6px 14px;">20 Courses</span>
               <button class="btn btn-primary" id="add-course-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 <span>Add Course</span>
@@ -524,7 +705,7 @@
               <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border);">
                 <h3 style="font-size: 15px; color: var(--danger); font-weight: 600; margin-bottom: 6px;">Reset Demo Data</h3>
                 <p style="font-size: 12px; color: var(--muted); margin-bottom: 16px;">
-                  Restore initial 22+ Uzbek students, 12 courses, stats, and notification sample items.
+                  Restore initial 22+ Uzbek students, 20 courses, stats, and notification sample items.
                 </p>
                 <button type="button" class="btn btn-danger" id="reset-demo-data-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
@@ -640,27 +821,81 @@
     </div>
   </div>
 
-  <!-- 3. Generic Confirmation Modal -->
+  <!-- 3. Submit Homework Modal (Image 2: Uyga vazifa topshirish) -->
+  <div class="modal-backdrop" id="modal-submit-homework" aria-hidden="true" role="dialog" aria-labelledby="submit-hw-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title" id="submit-hw-title">Uyga vazifa topshirish</h2>
+        <button class="btn-icon" data-dismiss="modal" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="submit-homework-form">
+        <input type="hidden" id="submit-hw-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="submit-hw-url">Topshiriq havolasi (GitHub / Figma / Google Drive) <span class="required">*</span></label>
+            <input type="url" id="submit-hw-url" class="form-control" placeholder="https://github.com/username/project" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="submit-hw-note">Izoh yoki xabar (ixtiyoriy)</label>
+            <textarea id="submit-hw-note" class="form-control" rows="3" placeholder="Vazifa bajarilishi haqida qisqacha izoh..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+          <button type="submit" class="btn btn-primary">Topshirish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Mentor Grade Submission Modal -->
+  <div class="modal-backdrop" id="modal-grade-homework" aria-hidden="true" role="dialog" aria-labelledby="grade-student-name">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title" id="grade-student-name">Topshiriqni baholash</h2>
+        <button class="btn-icon" data-dismiss="modal" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="grade-homework-form">
+        <input type="hidden" id="grade-sub-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="grade-score">Ball (0 - 100) <span class="required">*</span></label>
+            <input type="number" id="grade-score" class="form-control" min="0" max="100" value="95" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="grade-feedback">Mentor fikri va tavsiyalari</label>
+            <textarea id="grade-feedback" class="form-control" rows="3" placeholder="Topshiriq juda yaxshi bajarilgan..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+          <button type="submit" class="btn btn-primary">Bahoni Saqlash</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Generic Confirmation Modal -->
   <div class="modal-backdrop" id="modal-confirm" aria-hidden="true" role="dialog" aria-labelledby="confirm-modal-title">
     <div class="modal-dialog" style="max-width: 440px;">
       <div class="modal-header">
-        <h2 class="modal-title" id="confirm-modal-title">Confirm Action</h2>
+        <h2 class="modal-title" id="confirm-modal-title">Tasdiqlash</h2>
         <button class="btn-icon" data-dismiss="modal" aria-label="Close dialog">&times;</button>
       </div>
       <div class="modal-body">
         <p id="confirm-modal-message" style="color: var(--text-secondary); font-size: 14px; line-height: 1.5;">
-          Are you sure you want to proceed with this action?
+          Ushbu amalni bajarishga ishonchingiz komilmi?
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirm-modal-btn">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-btn">Tasdiqlash</button>
       </div>
     </div>
   </div>
 
   <!-- ================================================================
-       MOCK AUTHENTICATION / LOGIN SCREEN
+       MOCK AUTHENTICATION / LOGIN SCREEN WITH 5 QUICK ROLES
        ================================================================ -->
   <div class="login-screen" id="login-screen" role="dialog" aria-label="Sign In to IT LIVE Academy">
     <div class="login-card">
@@ -668,7 +903,7 @@
         <span class="brand-badge" style="font-size: 15px; padding: 6px 12px;">IT</span>
         <span class="brand-text" style="font-size: 18px;">LIVE ACADEMY</span>
       </div>
-      <p class="login-subtitle">Sign in to your administrative control dashboard</p>
+      <p class="login-subtitle">Kirish va foydalanuvchi kabineti tizimi</p>
 
       <form id="login-form">
         <div class="form-group" style="text-align: left;">
@@ -680,23 +915,30 @@
           <input type="password" id="login-password" class="form-control" value="1234" placeholder="Enter password (min 4 chars)" autocomplete="current-password" required>
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 10px; font-size: 15px;">
-          Sign In
+          Tizimga Kirish
         </button>
       </form>
 
-      <p style="font-size: 12px; color: var(--muted); margin-top: 16px;">
-        Demo login: any email + password &ge; 4 characters.
-      </p>
+      <!-- Quick Role Login (Image 1 & 2 requirements) -->
+      <div class="quick-role-logins">
+        <span style="font-size: 12px; color: var(--muted); font-weight: 600;">Tezkor Rol Tanlash (5 Role):</span>
+        <div class="quick-role-buttons">
+          <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;" data-quick-role="admin">👑 Admin</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;" data-quick-role="student">🎓 Student</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;" data-quick-role="mentor">👨‍🏫 Mentor</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;" data-quick-role="guest">👤 Guest</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;" data-quick-role="blocked">🚫 Blocked</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Toast Alert Notifications Container -->
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
-  <!-- Application Scripts: Native ES Modules (HTTP/Server) with seamless file:// protocol fallback -->
+  <!-- Application Scripts: Native ES Modules with seamless file:// protocol fallback -->
   <script type="module" src="js/app.js"></script>
   <script>
-    // Seamless fallback when opening index.html directly via file:// in Chromium/WebKit browsers
     if (window.location.protocol === 'file:') {
       const fallbackScript = document.createElement('script');
       fallbackScript.src = 'js/app.standalone.js';

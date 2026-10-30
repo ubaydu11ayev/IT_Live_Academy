@@ -1,21 +1,25 @@
 /* ==========================================================================
-   State Management & LocalStorage Store
+   State Management & LocalStorage Store (5 Roles & Neumorphism Edition)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
 import {
+  ROLES,
   INITIAL_STUDENTS,
   INITIAL_COURSES,
-  INITIAL_STATS,
   INITIAL_CHARTS_DATA,
   INITIAL_NOTIFICATIONS,
-  INITIAL_USER
+  INITIAL_HOMEWORK,
+  INITIAL_MENTOR_SUBMISSIONS
 } from './data.js';
 
 const STORAGE_KEYS = {
   STUDENTS: 'itlive_students',
   COURSES: 'itlive_courses',
   USER: 'itlive_user',
+  ROLE: 'itlive_role',
+  HOMEWORK: 'itlive_homework',
+  SUBMISSIONS: 'itlive_submissions',
   THEME: 'itlive_theme',
   AUTH: 'itlive_auth',
   NOTIFICATIONS: 'itlive_notifications'
@@ -33,8 +37,17 @@ class Store {
     if (!localStorage.getItem(STORAGE_KEYS.COURSES)) {
       localStorage.setItem(STORAGE_KEYS.COURSES, JSON.stringify(INITIAL_COURSES));
     }
+    if (!localStorage.getItem(STORAGE_KEYS.ROLE)) {
+      localStorage.setItem(STORAGE_KEYS.ROLE, 'admin');
+    }
     if (!localStorage.getItem(STORAGE_KEYS.USER)) {
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(INITIAL_USER));
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(ROLES.admin));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.HOMEWORK)) {
+      localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(INITIAL_HOMEWORK));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.SUBMISSIONS)) {
+      localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(INITIAL_MENTOR_SUBMISSIONS));
     }
     if (!localStorage.getItem(STORAGE_KEYS.THEME)) {
       localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
@@ -45,6 +58,92 @@ class Store {
     if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
       localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
     }
+  }
+
+  /* ---------------- 5 Role Management ---------------- */
+  getCurrentRole() {
+    return localStorage.getItem(STORAGE_KEYS.ROLE) || 'admin';
+  }
+
+  getRoleDetails(roleId = null) {
+    const id = roleId || this.getCurrentRole();
+    return ROLES[id] || ROLES.admin;
+  }
+
+  setCurrentRole(roleId) {
+    if (!ROLES[roleId]) roleId = 'admin';
+    localStorage.setItem(STORAGE_KEYS.ROLE, roleId);
+    
+    // Also synchronize active user profile with selected role
+    const roleUser = ROLES[roleId];
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(roleUser));
+
+    // If blocked, auth is still maintained but UI restricts to blocked screen
+    this.emitChange('role', roleId);
+    this.emitChange('user', roleUser);
+    return roleUser;
+  }
+
+  getAllRoles() {
+    return ROLES;
+  }
+
+  /* ---------------- Homework & Uyga Vazifa ---------------- */
+  getHomework() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.HOMEWORK);
+      return data ? JSON.parse(data) : INITIAL_HOMEWORK;
+    } catch {
+      return INITIAL_HOMEWORK;
+    }
+  }
+
+  submitHomework(taskId, submissionData) {
+    const list = this.getHomework();
+    const index = list.findIndex(h => h.id === taskId);
+    if (index !== -1) {
+      list[index].status = 'Under Review';
+      list[index].submittedDate = new Date().toISOString().split('T')[0];
+      list[index].submissionNote = submissionData.note || '';
+      list[index].githubUrl = submissionData.url || '';
+    } else {
+      list.unshift({
+        id: 'hw-' + Date.now(),
+        title: submissionData.title || 'Yangi uyga vazifa',
+        course: submissionData.course || 'Python Backend',
+        status: 'Under Review',
+        deadline: 'Tekshirilmoqda',
+        submittedDate: new Date().toISOString().split('T')[0],
+        ...submissionData
+      });
+    }
+    localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(list));
+    this.emitChange('homework', list);
+    return list;
+  }
+
+  /* ---------------- Mentor Submissions & Grading ---------------- */
+  getSubmissions() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.SUBMISSIONS);
+      return data ? JSON.parse(data) : INITIAL_MENTOR_SUBMISSIONS;
+    } catch {
+      return INITIAL_MENTOR_SUBMISSIONS;
+    }
+  }
+
+  gradeSubmission(submissionId, score, feedback) {
+    const subs = this.getSubmissions();
+    const index = subs.findIndex(s => s.id === submissionId);
+    if (index !== -1) {
+      subs[index].status = 'Reviewed';
+      subs[index].score = score;
+      subs[index].feedback = feedback;
+      localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(subs));
+      this.emitChange('submissions', subs);
+      return subs[index];
+    }
+    return null;
   }
 
   /* ---------------- Students ---------------- */
@@ -155,18 +254,15 @@ class Store {
     const courses = this.getCourses();
 
     // Baseline calculation to match exact visual targets (1,245 students, 48 courses, $24,560 revenue, 83% completion)
-    // Offset by initial counts
     const baseStudents = 1245 - INITIAL_STUDENTS.length;
     const totalStudents = baseStudents + students.length;
 
     const baseCourses = 48 - INITIAL_COURSES.length;
     const totalCourses = baseCourses + courses.length;
 
-    // Calculate dynamic completion rate (83% baseline)
     const totalRate = courses.reduce((acc, c) => acc + (Number(c.completionRate) || 83), 0);
     const avgRate = courses.length ? Math.round(totalRate / courses.length) : 83;
 
-    // Revenue calculation: exactly $24,560 baseline
     const studentDiff = students.length - INITIAL_STUDENTS.length;
     const courseDiff = courses.length - INITIAL_COURSES.length;
     const totalRevenue = 24560 + (studentDiff * 250) + (courseDiff * 300);
@@ -219,9 +315,9 @@ class Store {
   getUser() {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.USER);
-      return data ? JSON.parse(data) : INITIAL_USER;
+      return data ? JSON.parse(data) : ROLES.admin;
     } catch {
-      return INITIAL_USER;
+      return ROLES.admin;
     }
   }
 
@@ -277,7 +373,10 @@ class Store {
   resetDemoData() {
     localStorage.setItem(STORAGE_KEYS.STUDENTS, JSON.stringify(INITIAL_STUDENTS));
     localStorage.setItem(STORAGE_KEYS.COURSES, JSON.stringify(INITIAL_COURSES));
-    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(INITIAL_USER));
+    localStorage.setItem(STORAGE_KEYS.ROLE, 'admin');
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(ROLES.admin));
+    localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(INITIAL_HOMEWORK));
+    localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(INITIAL_MENTOR_SUBMISSIONS));
     localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
     localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
     document.documentElement.setAttribute('data-theme', 'dark');

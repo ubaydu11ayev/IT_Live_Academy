@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SPA Hash Router
+   SPA Hash Router (Supporting 5 Roles & Neumorphism)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
@@ -8,8 +8,14 @@ import { animateCountUp } from './ui.js';
 import { initDashboardCharts, initAnalyticsCharts } from './charts.js';
 import { renderStudentsTable, populateCourseOptions } from './students.js';
 import { renderCoursesGrid } from './courses.js';
+import { renderUserCabinetWindow, applyRolePermissions } from './cabinet.js';
 
 const ROUTES = {
+  '#cabinet': {
+    title: 'User Cabinet',
+    viewId: 'view-cabinet',
+    onEnter: () => enterCabinetView()
+  },
   '#dashboard': {
     title: 'Dashboard',
     viewId: 'view-dashboard',
@@ -42,15 +48,33 @@ const ROUTES = {
  */
 export function initRouter() {
   window.addEventListener('hashchange', handleRoute);
-  // Initial route handle
   handleRoute();
 }
 
 /**
- * Handle route transition
+ * Handle route transition with role-based guard
  */
 export function handleRoute() {
   let hash = window.location.hash || '#dashboard';
+  const role = store.getCurrentRole();
+  const roleData = store.getRoleDetails();
+
+  // If role is blocked or guest without dashboard permission, direct to cabinet
+  if (role === 'blocked' && hash !== '#cabinet') {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
+  if (role === 'guest' && (hash === '#students' || hash === '#analytics' || hash === '#settings')) {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
+  if (role === 'student' && (hash === '#students' || hash === '#analytics')) {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
   if (!ROUTES[hash]) {
     hash = '#dashboard';
     window.location.hash = '#dashboard';
@@ -92,10 +116,20 @@ export function handleRoute() {
     mainContent.scrollTop = 0;
   }
 
-  // 5. Invoke route enter hook
+  // 5. Apply permissions
+  applyRolePermissions(role);
+
+  // 6. Invoke route enter hook
   if (typeof routeConfig.onEnter === 'function') {
     routeConfig.onEnter();
   }
+}
+
+/**
+ * User Cabinet View Hook
+ */
+function enterCabinetView() {
+  renderUserCabinetWindow();
 }
 
 /**
@@ -114,7 +148,6 @@ function enterDashboardView() {
   if (elRevenue) animateCountUp(elRevenue, stats.revenue, 1200, '$');
   if (elCompletion) animateCountUp(elCompletion, stats.completionRate, 900, '', '%');
 
-  // Render Charts
   setTimeout(() => {
     initDashboardCharts();
   }, 50);
@@ -157,9 +190,9 @@ function enterSettingsView() {
   const avatarInitials = document.getElementById('settings-avatar-initials');
 
   if (nameInput) nameInput.value = user.name;
-  if (emailInput) emailInput.value = user.email;
-  if (roleInput) roleInput.value = user.role;
-  if (avatarInitials) avatarInitials.textContent = user.initials || 'IT';
+  if (emailInput) emailInput.value = user.email || `${user.id}@itlive.uz`;
+  if (roleInput) roleInput.value = user.roleTitle;
+  if (avatarInitials) avatarInitials.textContent = user.avatar || user.initials || 'IT';
 
   // Highlight active theme card
   document.querySelectorAll('.theme-card').forEach(card => {
@@ -170,4 +203,3 @@ function enterSettingsView() {
     }
   });
 }
-

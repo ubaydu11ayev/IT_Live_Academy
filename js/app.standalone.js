@@ -3,8 +3,130 @@
 
 /* ==================== data.js ==================== */
 /* ==========================================================================
-   Initial Seed Data for IT LIVE Academy
+   Initial Seed Data for IT LIVE Academy (Neumorphic & 5 Roles Edition)
    ========================================================================== */
+
+const ROLES = {
+  admin: {
+    id: "admin",
+    name: "Alisher Qosimov",
+    roleTitle: "Head Administrator",
+    roleLabel: "Admin",
+    badgeClass: "role-badge-admin",
+    avatar: "AQ",
+    description: "To'liq boshqaruv huquqiga ega tizim ma'muri.",
+    permissions: ["dashboard", "students", "courses", "analytics", "settings", "cabinet"]
+  },
+  student: {
+    id: "student",
+    name: "Sardor Rahimov",
+    roleTitle: "Python Backend Talabasi",
+    roleLabel: "Student",
+    badgeClass: "role-badge-student",
+    avatar: "SR",
+    description: "Kurslar o'rganuvchisi, uyga vazifalar topshiradi va reytingini kuzatadi.",
+    permissions: ["cabinet", "courses", "settings"]
+  },
+  mentor: {
+    id: "mentor",
+    name: "Anvar Narzullaev",
+    roleTitle: "Lead Mentor & Instructor",
+    roleLabel: "Mentor",
+    badgeClass: "role-badge-mentor",
+    avatar: "AN",
+    description: "Talabalarga dars beradi, uyga vazifalarni tekshiradi va baholaydi.",
+    permissions: ["cabinet", "courses", "students", "settings"]
+  },
+  guest: {
+    id: "guest",
+    name: "Mehmon Foydalanuvchi",
+    roleTitle: "Guest / Visitor",
+    roleLabel: "Guest",
+    badgeClass: "role-badge-guest",
+    avatar: "MF",
+    description: "Cheklangan mehmon rejimi. Faqat ochiq kurslarni ko'rishi mumkin.",
+    permissions: ["cabinet", "courses"]
+  },
+  blocked: {
+    id: "blocked",
+    name: "Jasur Qobilov",
+    roleTitle: "Account Blocked",
+    roleLabel: "Blocked",
+    badgeClass: "role-badge-blocked",
+    avatar: "JQ",
+    description: "Akkaunt qoidabuzarlik yoki to'lov muddati o'tganligi sababli bloklangan.",
+    permissions: ["cabinet"]
+  }
+};
+
+const INITIAL_HOMEWORK = [
+  {
+    id: "hw-1",
+    course: "Python Backend (Django & FastAPI)",
+    title: "24-topshiriq: Login/Logout va rol menyusini qo'shish (3 commit)",
+    status: "In Progress",
+    deadline: "Bugun, 23:59",
+    score: null,
+    submittedDate: null
+  },
+  {
+    id: "hw-2",
+    course: "Frontend Development (React & Next.js)",
+    title: "23-topshiriq: Neumorphism shaklidagi UI interfeys yaratish",
+    status: "Completed",
+    deadline: "28-Oktabr",
+    score: "100 / 100",
+    submittedDate: "2024-10-28"
+  },
+  {
+    id: "hw-3",
+    course: "Python Backend (Django & FastAPI)",
+    title: "22-topshiriq: PostgreSQL Database Schema va Migrations",
+    status: "Under Review",
+    deadline: "26-Oktabr",
+    score: "Kutilmoqda",
+    submittedDate: "2024-10-26"
+  },
+  {
+    id: "hw-4",
+    course: "UI/UX Design Masterclass (Figma)",
+    title: "21-topshiriq: User Cabinet va 5 Role uchun vizual prototip",
+    status: "Completed",
+    deadline: "24-Oktabr",
+    score: "95 / 100",
+    submittedDate: "2024-10-24"
+  }
+];
+
+const INITIAL_MENTOR_SUBMISSIONS = [
+  {
+    id: "sub-1",
+    studentName: "Sardor Rahimov",
+    course: "Python Backend",
+    task: "Login/Logout va rol menyusi",
+    date: "Bugun, 14:20",
+    status: "Pending",
+    githubUrl: "https://github.com/itlive/student-project"
+  },
+  {
+    id: "sub-2",
+    studentName: "Dilnoza Alimova",
+    course: "UI/UX Design",
+    task: "Neumorphic User Cabinet prototipi",
+    date: "Bugun, 12:45",
+    status: "Pending",
+    githubUrl: "https://figma.com/file/sample"
+  },
+  {
+    id: "sub-3",
+    studentName: "Jasurbek Umarov",
+    course: "Frontend Development",
+    task: "Chart.js grafiklar integratsiyasi",
+    date: "Kecha, 18:30",
+    status: "Reviewed",
+    githubUrl: "https://github.com/jasur/frontend-app"
+  }
+];
 
 const INITIAL_STUDENTS = [
   {
@@ -229,9 +351,7 @@ const INITIAL_STUDENTS = [
   }
 ];
 
-// 20 courses perfectly distributed: 8 Dev (40%), 5 Design (25%), 4 Biz (20%), 3 Other (15%)
 const INITIAL_COURSES = [
-  // 1-8: Development (40%)
   {
     id: "crs-001",
     title: "Python Backend (Django & FastAPI)",
@@ -320,8 +440,6 @@ const INITIAL_COURSES = [
     completionRate: 82,
     status: "Active"
   },
-
-  // 9-13: Design (25%)
   {
     id: "crs-009",
     title: "UI/UX Design Masterclass (Figma)",
@@ -377,8 +495,6 @@ const INITIAL_COURSES = [
     completionRate: 87,
     status: "Active"
   },
-
-  // 14-17: Business (20%)
   {
     id: "crs-014",
     title: "SMM & Targeted Digital Marketing",
@@ -423,8 +539,6 @@ const INITIAL_COURSES = [
     completionRate: 82,
     status: "Active"
   },
-
-  // 18-20: Other (15%)
   {
     id: "crs-018",
     title: "DevOps & Cloud Infrastructure (Docker, K8s)",
@@ -473,52 +587,45 @@ const INITIAL_STATS = {
 
 const INITIAL_CHARTS_DATA = {
   months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-  // Match the stepped bar height from photo: 0 to 1000 range
   studentsOverview: [320, 480, 620, 750, 840, 920, 980],
   categories: {
     labels: ["Development", "Design", "Business", "Other"],
     values: [40, 25, 20, 15],
     colors: ["#2f6bff", "#8b5cf6", "#22c55e", "#64748b"]
   },
-  // Curved wave matching photo: crest at Feb (~17k), dip at Mar/Apr (~14k), wave at May (~21k), dip at Jun (~18k), peak at Jul ($24,560)
   revenueOverview: [11000, 18500, 13800, 19200, 15800, 21400, 24560]
 };
 
 const INITIAL_NOTIFICATIONS = [
   {
     id: "notif-1",
-    title: "New Student Enrolled",
-    message: "Sardor Rahimov enrolled in Python Backend.",
-    time: "10 minutes ago",
+    title: "Yangi topshiriq yuklandi",
+    message: "24-Uyga vazifa: Login/logout va rol menyusi qo'shildi.",
+    time: "10 daqiqa oldin",
     read: false
   },
   {
     id: "notif-2",
-    title: "Course Updated",
-    message: "React & Next.js syllabus updated to v15.",
-    time: "2 hours ago",
+    title: "Uyga vazifa baholandi",
+    message: "Neumorphism prototipi uchun 100/100 ball qo'yildi.",
+    time: "2 soat oldin",
     read: false
   },
   {
     id: "notif-3",
-    title: "Monthly Milestone Reached",
-    message: "Total revenue exceeded $24,000 for this month!",
-    time: "1 day ago",
+    title: "Oylik maqsadga erishildi",
+    message: "Oylik tushum $24,560 dan oshdi!",
+    time: "1 kun oldin",
     read: false
   }
 ];
 
-const INITIAL_USER = {
-  name: "Alisher Qosimov",
-  email: "admin@itlive.uz",
-  role: "Head Administrator",
-  initials: "AQ"
-};
+const INITIAL_USER = ROLES.admin;
 
 
 /* ==================== store.js ==================== */
 /* ==========================================================================
-   State Management & LocalStorage Store
+   State Management & LocalStorage Store (5 Roles & Neumorphism Edition)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
@@ -527,6 +634,9 @@ const STORAGE_KEYS = {
   STUDENTS: 'itlive_students',
   COURSES: 'itlive_courses',
   USER: 'itlive_user',
+  ROLE: 'itlive_role',
+  HOMEWORK: 'itlive_homework',
+  SUBMISSIONS: 'itlive_submissions',
   THEME: 'itlive_theme',
   AUTH: 'itlive_auth',
   NOTIFICATIONS: 'itlive_notifications'
@@ -544,8 +654,17 @@ class Store {
     if (!localStorage.getItem(STORAGE_KEYS.COURSES)) {
       localStorage.setItem(STORAGE_KEYS.COURSES, JSON.stringify(INITIAL_COURSES));
     }
+    if (!localStorage.getItem(STORAGE_KEYS.ROLE)) {
+      localStorage.setItem(STORAGE_KEYS.ROLE, 'admin');
+    }
     if (!localStorage.getItem(STORAGE_KEYS.USER)) {
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(INITIAL_USER));
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(ROLES.admin));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.HOMEWORK)) {
+      localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(INITIAL_HOMEWORK));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.SUBMISSIONS)) {
+      localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(INITIAL_MENTOR_SUBMISSIONS));
     }
     if (!localStorage.getItem(STORAGE_KEYS.THEME)) {
       localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
@@ -556,6 +675,92 @@ class Store {
     if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
       localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
     }
+  }
+
+  /* ---------------- 5 Role Management ---------------- */
+  getCurrentRole() {
+    return localStorage.getItem(STORAGE_KEYS.ROLE) || 'admin';
+  }
+
+  getRoleDetails(roleId = null) {
+    const id = roleId || this.getCurrentRole();
+    return ROLES[id] || ROLES.admin;
+  }
+
+  setCurrentRole(roleId) {
+    if (!ROLES[roleId]) roleId = 'admin';
+    localStorage.setItem(STORAGE_KEYS.ROLE, roleId);
+    
+    // Also synchronize active user profile with selected role
+    const roleUser = ROLES[roleId];
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(roleUser));
+
+    // If blocked, auth is still maintained but UI restricts to blocked screen
+    this.emitChange('role', roleId);
+    this.emitChange('user', roleUser);
+    return roleUser;
+  }
+
+  getAllRoles() {
+    return ROLES;
+  }
+
+  /* ---------------- Homework & Uyga Vazifa ---------------- */
+  getHomework() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.HOMEWORK);
+      return data ? JSON.parse(data) : INITIAL_HOMEWORK;
+    } catch {
+      return INITIAL_HOMEWORK;
+    }
+  }
+
+  submitHomework(taskId, submissionData) {
+    const list = this.getHomework();
+    const index = list.findIndex(h => h.id === taskId);
+    if (index !== -1) {
+      list[index].status = 'Under Review';
+      list[index].submittedDate = new Date().toISOString().split('T')[0];
+      list[index].submissionNote = submissionData.note || '';
+      list[index].githubUrl = submissionData.url || '';
+    } else {
+      list.unshift({
+        id: 'hw-' + Date.now(),
+        title: submissionData.title || 'Yangi uyga vazifa',
+        course: submissionData.course || 'Python Backend',
+        status: 'Under Review',
+        deadline: 'Tekshirilmoqda',
+        submittedDate: new Date().toISOString().split('T')[0],
+        ...submissionData
+      });
+    }
+    localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(list));
+    this.emitChange('homework', list);
+    return list;
+  }
+
+  /* ---------------- Mentor Submissions & Grading ---------------- */
+  getSubmissions() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.SUBMISSIONS);
+      return data ? JSON.parse(data) : INITIAL_MENTOR_SUBMISSIONS;
+    } catch {
+      return INITIAL_MENTOR_SUBMISSIONS;
+    }
+  }
+
+  gradeSubmission(submissionId, score, feedback) {
+    const subs = this.getSubmissions();
+    const index = subs.findIndex(s => s.id === submissionId);
+    if (index !== -1) {
+      subs[index].status = 'Reviewed';
+      subs[index].score = score;
+      subs[index].feedback = feedback;
+      localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(subs));
+      this.emitChange('submissions', subs);
+      return subs[index];
+    }
+    return null;
   }
 
   /* ---------------- Students ---------------- */
@@ -666,18 +871,15 @@ class Store {
     const courses = this.getCourses();
 
     // Baseline calculation to match exact visual targets (1,245 students, 48 courses, $24,560 revenue, 83% completion)
-    // Offset by initial counts
     const baseStudents = 1245 - INITIAL_STUDENTS.length;
     const totalStudents = baseStudents + students.length;
 
     const baseCourses = 48 - INITIAL_COURSES.length;
     const totalCourses = baseCourses + courses.length;
 
-    // Calculate dynamic completion rate (83% baseline)
     const totalRate = courses.reduce((acc, c) => acc + (Number(c.completionRate) || 83), 0);
     const avgRate = courses.length ? Math.round(totalRate / courses.length) : 83;
 
-    // Revenue calculation: exactly $24,560 baseline
     const studentDiff = students.length - INITIAL_STUDENTS.length;
     const courseDiff = courses.length - INITIAL_COURSES.length;
     const totalRevenue = 24560 + (studentDiff * 250) + (courseDiff * 300);
@@ -730,9 +932,9 @@ class Store {
   getUser() {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.USER);
-      return data ? JSON.parse(data) : INITIAL_USER;
+      return data ? JSON.parse(data) : ROLES.admin;
     } catch {
-      return INITIAL_USER;
+      return ROLES.admin;
     }
   }
 
@@ -788,7 +990,10 @@ class Store {
   resetDemoData() {
     localStorage.setItem(STORAGE_KEYS.STUDENTS, JSON.stringify(INITIAL_STUDENTS));
     localStorage.setItem(STORAGE_KEYS.COURSES, JSON.stringify(INITIAL_COURSES));
-    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(INITIAL_USER));
+    localStorage.setItem(STORAGE_KEYS.ROLE, 'admin');
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(ROLES.admin));
+    localStorage.setItem(STORAGE_KEYS.HOMEWORK, JSON.stringify(INITIAL_HOMEWORK));
+    localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(INITIAL_MENTOR_SUBMISSIONS));
     localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
     localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -1064,6 +1269,7 @@ function closeAllDropdowns(except = null) {
     }
   });
 }
+
 
 
 /* ==================== charts.js ==================== */
@@ -2155,9 +2361,351 @@ function escapeHtml(str = '') {
 }
 
 
+/* ==================== cabinet.js ==================== */
+/* ==========================================================================
+   User Cabinet & 5 Roles Dynamic Interface Module
+   (Matching Image 1 & Image 2 - Neumorphism Edition)
+   ========================================================================== */
+
+
+
+
+function initCabinetModule() {
+  renderUserCabinetWindow();
+  setupRoleSwitcherMenu();
+  setupHomeworkEvents();
+  setupMentorGradingEvents();
+}
+
+/**
+ * Render the 5 Role Cards in User Cabinet (Matching Image 1)
+ */
+function renderUserCabinetWindow() {
+  const container = document.getElementById('roles-grid-container');
+  if (!container) return;
+
+  const currentRole = store.getCurrentRole();
+  const allRoles = store.getAllRoles();
+
+  // 5 Roles: Guest, Student, Mentor, Admin, Blocked (in order from Image 1)
+  const roleOrder = ['guest', 'student', 'mentor', 'admin', 'blocked'];
+
+  const roleIcons = {
+    guest: `<svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+    student: `<svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+    mentor: `<svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>`,
+    admin: `<svg viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>`,
+    blocked: `<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="8" y1="15" x2="16" y2="15"/></svg>`
+  };
+
+  container.innerHTML = roleOrder.map(key => {
+    const r = allRoles[key];
+    const isActive = key === currentRole;
+    return `
+      <div class="role-card ${isActive ? 'active' : ''}" data-role="${key}" role="button" tabindex="0">
+        <div class="role-icon-box">
+          ${roleIcons[key]}
+        </div>
+        <div class="role-card-title">${r.roleLabel}</div>
+        <div class="role-card-desc">${r.roleTitle}</div>
+        <span class="role-card-status ${r.badgeClass}">
+          ${isActive ? 'Active Now' : 'Select Role'}
+        </span>
+      </div>
+    `;
+  }).join('');
+
+  // Click listener on role cards
+  container.querySelectorAll('.role-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const selectedRole = card.dataset.role;
+      switchActiveRole(selectedRole);
+    });
+  });
+
+  // Render role-specific interface panels
+  renderRolePanels(currentRole);
+}
+
+/**
+ * Switch Active Role
+ */
+function switchActiveRole(roleId) {
+  const roleData = store.setCurrentRole(roleId);
+  showToast('Rol almashtirildi', `Faol rol: ${roleData.roleLabel} (${roleData.roleTitle})`, 'success');
+  
+  // Re-render cabinet
+  renderUserCabinetWindow();
+  updateTopbarRoleDisplay();
+  
+  // Update sidebar visibility based on permissions
+  applyRolePermissions(roleId);
+
+  // If blocked, redirect to cabinet to display restriction
+  if (roleId === 'blocked') {
+    window.location.hash = '#cabinet';
+    handleRoute();
+  }
+}
+
+/**
+ * Update Topbar Role Pill & Dropdown
+ */
+function updateTopbarRoleDisplay() {
+  const rolePill = document.getElementById('current-role-badge');
+  const roleName = document.getElementById('current-role-text');
+  const roleDetails = store.getRoleDetails();
+
+  if (rolePill) {
+    rolePill.className = `role-badge-tag ${roleDetails.badgeClass}`;
+    rolePill.textContent = roleDetails.roleLabel;
+  }
+  if (roleName) {
+    roleName.textContent = roleDetails.name;
+  }
+}
+
+/**
+ * Setup Topbar Role Switcher Dropdown
+ */
+function setupRoleSwitcherMenu() {
+  const menu = document.getElementById('role-menu-dropdown');
+  const triggerBtn = document.getElementById('role-switcher-btn');
+  const allRoles = store.getAllRoles();
+
+  if (!menu) return;
+
+  menu.innerHTML = Object.keys(allRoles).map(key => {
+    const r = allRoles[key];
+    return `
+      <div class="dropdown-item" data-switch-role="${key}">
+        <span class="badge ${r.badgeClass}" style="min-width: 65px; justify-content: center;">${r.roleLabel}</span>
+        <div>
+          <div style="font-weight: 600; font-size: 13px;">${r.name}</div>
+          <div style="font-size: 11px; color: var(--muted);">${r.roleTitle}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  menu.querySelectorAll('[data-switch-role]').forEach(item => {
+    item.addEventListener('click', () => {
+      const role = item.dataset.switchRole;
+      menu.classList.remove('active');
+      switchActiveRole(role);
+    });
+  });
+
+  if (triggerBtn) {
+    triggerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('active');
+    });
+  }
+
+  updateTopbarRoleDisplay();
+}
+
+/**
+ * Apply role-based visibility to sidebar and actions
+ */
+function applyRolePermissions(roleId) {
+  const role = store.getRoleDetails(roleId);
+  const perms = role.permissions || [];
+
+  const navDashboard = document.getElementById('nav-dashboard');
+  const navStudents = document.getElementById('nav-students');
+  const navCourses = document.getElementById('nav-courses');
+  const navAnalytics = document.getElementById('nav-analytics');
+  const navSettings = document.getElementById('nav-settings');
+  const navCabinet = document.getElementById('nav-cabinet');
+
+  if (navDashboard) navDashboard.style.display = perms.includes('dashboard') ? 'flex' : 'none';
+  if (navStudents) navStudents.style.display = perms.includes('students') ? 'flex' : 'none';
+  if (navCourses) navCourses.style.display = perms.includes('courses') ? 'flex' : 'none';
+  if (navAnalytics) navAnalytics.style.display = perms.includes('analytics') ? 'flex' : 'none';
+  if (navSettings) navSettings.style.display = perms.includes('settings') ? 'flex' : 'none';
+  if (navCabinet) navCabinet.style.display = 'flex';
+}
+
+/**
+ * Render role-specific interface panels (Student, Mentor, Guest, Blocked)
+ */
+function renderRolePanels(currentRole) {
+  const studentPanel = document.getElementById('panel-student-role');
+  const mentorPanel = document.getElementById('panel-mentor-role');
+  const guestPanel = document.getElementById('panel-guest-role');
+  const blockedPanel = document.getElementById('panel-blocked-role');
+  const adminPanel = document.getElementById('panel-admin-role');
+
+  if (studentPanel) studentPanel.style.display = currentRole === 'student' ? 'block' : 'none';
+  if (mentorPanel) mentorPanel.style.display = currentRole === 'mentor' ? 'block' : 'none';
+  if (guestPanel) guestPanel.style.display = currentRole === 'guest' ? 'block' : 'none';
+  if (blockedPanel) blockedPanel.style.display = currentRole === 'blocked' ? 'block' : 'none';
+  if (adminPanel) adminPanel.style.display = currentRole === 'admin' ? 'block' : 'none';
+
+  if (currentRole === 'student') renderStudentHomework();
+  if (currentRole === 'mentor') renderMentorSubmissions();
+}
+
+/**
+ * Render Student "Uyga vazifalar" (Homework List matching Image 2)
+ */
+function renderStudentHomework() {
+  const container = document.getElementById('student-homework-list');
+  if (!container) return;
+
+  const homework = store.getHomework();
+
+  container.innerHTML = homework.map(hw => {
+    const isDone = hw.status === 'Completed';
+    const isReview = hw.status === 'Under Review';
+    const statusBadge = isDone 
+      ? '<span class="badge badge-active"><span class="badge-dot"></span>Bajarildi</span>'
+      : isReview
+      ? '<span class="badge badge-completed"><span class="badge-dot"></span>Tekshiruvda</span>'
+      : '<span class="badge badge-paused"><span class="badge-dot"></span>Jarayonda</span>';
+
+    return `
+      <div class="homework-item">
+        <div class="homework-left">
+          <div class="homework-checkbox">
+            ${isDone ? '✓' : isReview ? '⏳' : '○'}
+          </div>
+          <div>
+            <div class="homework-title">${hw.title}</div>
+            <div class="homework-course">Kurs: ${hw.course} &bull; Muddat: ${hw.deadline}</div>
+            ${hw.score ? `<div style="font-size: 11px; color: var(--success); font-weight: 600; margin-top: 3px;">Baholandi: ${hw.score}</div>` : ''}
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+          ${statusBadge}
+          ${!isDone ? `<button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;" data-submit-hw="${hw.id}">Topshirish</button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('[data-submit-hw]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const hwId = btn.dataset.submitHw;
+      openSubmitHomeworkModal(hwId);
+    });
+  });
+}
+
+/**
+ * Render Mentor Submissions to review
+ */
+function renderMentorSubmissions() {
+  const container = document.getElementById('mentor-submissions-list');
+  if (!container) return;
+
+  const submissions = store.getSubmissions();
+
+  container.innerHTML = submissions.map(sub => {
+    const isDone = sub.status === 'Reviewed';
+    return `
+      <div class="homework-item">
+        <div class="homework-left">
+          <div class="avatar-circle" style="width: 34px; height: 34px; font-size: 12px; background: linear-gradient(135deg, #3b82f6, #9333ea);">
+            ${sub.studentName.slice(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <div class="homework-title">${sub.studentName} — ${sub.task}</div>
+            <div class="homework-course">Kurs: ${sub.course} &bull; Yuborildi: ${sub.date}</div>
+            ${sub.githubUrl ? `<a href="${sub.githubUrl}" target="_blank" style="font-size: 11px; color: #60a5fa; text-decoration: underline;">Topshiriq havolasini ko'rish &rarr;</a>` : ''}
+          </div>
+        </div>
+        <div>
+          ${isDone 
+            ? `<span class="badge badge-active">Baholangan (${sub.score})</span>`
+            : `<button class="btn btn-primary" style="font-size: 11px; padding: 4px 12px;" data-grade-sub="${sub.id}">Baholash</button>`
+          }
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('[data-grade-sub]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openGradeModal(btn.dataset.gradeSub);
+    });
+  });
+}
+
+/**
+ * Open Submit Homework Modal
+ */
+function openSubmitHomeworkModal(hwId) {
+  const hw = store.getHomework().find(h => h.id === hwId);
+  const titleEl = document.getElementById('submit-hw-title');
+  const inputId = document.getElementById('submit-hw-id');
+
+  if (titleEl && hw) titleEl.textContent = hw.title;
+  if (inputId) inputId.value = hwId;
+
+  openModal('modal-submit-homework');
+}
+
+/**
+ * Open Grade Modal
+ */
+function openGradeModal(subId) {
+  const sub = store.getSubmissions().find(s => s.id === subId);
+  const studentEl = document.getElementById('grade-student-name');
+  const inputId = document.getElementById('grade-sub-id');
+
+  if (studentEl && sub) studentEl.textContent = `${sub.studentName} - ${sub.task}`;
+  if (inputId) inputId.value = subId;
+
+  openModal('modal-grade-homework');
+}
+
+/**
+ * Setup homework submission form listeners
+ */
+function setupHomeworkEvents() {
+  const form = document.getElementById('submit-homework-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const hwId = document.getElementById('submit-hw-id').value;
+      const url = document.getElementById('submit-hw-url').value;
+      const note = document.getElementById('submit-hw-note').value;
+
+      store.submitHomework(hwId, { url, note });
+      showToast('Uyga vazifa topshirildi!', 'Vazifa tekshirish uchun ustozingizga yuborildi.', 'success');
+      closeModal('modal-submit-homework');
+      renderStudentHomework();
+    });
+  }
+}
+
+/**
+ * Setup mentor grading form listeners
+ */
+function setupMentorGradingEvents() {
+  const form = document.getElementById('grade-homework-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const subId = document.getElementById('grade-sub-id').value;
+      const score = document.getElementById('grade-score').value;
+      const feedback = document.getElementById('grade-feedback').value;
+
+      store.gradeSubmission(subId, score, feedback);
+      showToast('Baholandi!', `Topshiriq muvaffaqiyatli ${score} ball bilan baholandi.`, 'success');
+      closeModal('modal-grade-homework');
+      renderMentorSubmissions();
+    });
+  }
+}
+
+
 /* ==================== router.js ==================== */
 /* ==========================================================================
-   SPA Hash Router
+   SPA Hash Router (Supporting 5 Roles & Neumorphism)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
@@ -2166,7 +2714,13 @@ function escapeHtml(str = '') {
 
 
 
+
 const ROUTES = {
+  '#cabinet': {
+    title: 'User Cabinet',
+    viewId: 'view-cabinet',
+    onEnter: () => enterCabinetView()
+  },
   '#dashboard': {
     title: 'Dashboard',
     viewId: 'view-dashboard',
@@ -2199,15 +2753,33 @@ const ROUTES = {
  */
 function initRouter() {
   window.addEventListener('hashchange', handleRoute);
-  // Initial route handle
   handleRoute();
 }
 
 /**
- * Handle route transition
+ * Handle route transition with role-based guard
  */
 function handleRoute() {
   let hash = window.location.hash || '#dashboard';
+  const role = store.getCurrentRole();
+  const roleData = store.getRoleDetails();
+
+  // If role is blocked or guest without dashboard permission, direct to cabinet
+  if (role === 'blocked' && hash !== '#cabinet') {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
+  if (role === 'guest' && (hash === '#students' || hash === '#analytics' || hash === '#settings')) {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
+  if (role === 'student' && (hash === '#students' || hash === '#analytics')) {
+    window.location.hash = '#cabinet';
+    return;
+  }
+
   if (!ROUTES[hash]) {
     hash = '#dashboard';
     window.location.hash = '#dashboard';
@@ -2249,10 +2821,20 @@ function handleRoute() {
     mainContent.scrollTop = 0;
   }
 
-  // 5. Invoke route enter hook
+  // 5. Apply permissions
+  applyRolePermissions(role);
+
+  // 6. Invoke route enter hook
   if (typeof routeConfig.onEnter === 'function') {
     routeConfig.onEnter();
   }
+}
+
+/**
+ * User Cabinet View Hook
+ */
+function enterCabinetView() {
+  renderUserCabinetWindow();
 }
 
 /**
@@ -2271,7 +2853,6 @@ function enterDashboardView() {
   if (elRevenue) animateCountUp(elRevenue, stats.revenue, 1200, '$');
   if (elCompletion) animateCountUp(elCompletion, stats.completionRate, 900, '', '%');
 
-  // Render Charts
   setTimeout(() => {
     initDashboardCharts();
   }, 50);
@@ -2314,9 +2895,9 @@ function enterSettingsView() {
   const avatarInitials = document.getElementById('settings-avatar-initials');
 
   if (nameInput) nameInput.value = user.name;
-  if (emailInput) emailInput.value = user.email;
-  if (roleInput) roleInput.value = user.role;
-  if (avatarInitials) avatarInitials.textContent = user.initials || 'IT';
+  if (emailInput) emailInput.value = user.email || `${user.id}@itlive.uz`;
+  if (roleInput) roleInput.value = user.roleTitle;
+  if (avatarInitials) avatarInitials.textContent = user.avatar || user.initials || 'IT';
 
   // Highlight active theme card
   document.querySelectorAll('.theme-card').forEach(card => {
@@ -2331,9 +2912,10 @@ function enterSettingsView() {
 
 /* ==================== app.js ==================== */
 /* ==========================================================================
-   Application Entrypoint
+   Application Entrypoint (Neumorphic & 5 Roles Edition)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
+
 
 
 
@@ -2354,6 +2936,7 @@ function initializeApp() {
   setupUIListeners();
 
   // 3. Initialize feature modules
+  initCabinetModule();
   initStudentsModule();
   initCoursesModule();
   setupSettingsModule();
@@ -2370,12 +2953,11 @@ function initializeApp() {
 }
 
 /**
- * Sync UI when store changes (CRUD actions, theme, reset)
+ * Sync UI when store changes (CRUD actions, theme, role, reset)
  */
 function handleStoreChange(e) {
   const { key } = e.detail;
   if (key === 'students' || key === 'courses' || key === 'reset') {
-    // If on students or courses page, re-render
     if (window.location.hash === '#students') {
       renderStudentsTable();
     } else if (window.location.hash === '#courses') {
@@ -2383,8 +2965,10 @@ function handleStoreChange(e) {
     } else if (window.location.hash === '#dashboard') {
       handleRoute();
     }
-  } else if (key === 'user') {
+  } else if (key === 'user' || key === 'role') {
     setupUserDisplay();
+    updateTopbarRoleDisplay();
+    applyRolePermissions(store.getCurrentRole());
   } else if (key === 'theme') {
     refreshAllCharts();
   }
@@ -2400,8 +2984,8 @@ function setupUserDisplay() {
   const userAvatarEl = document.getElementById('topbar-user-avatar');
 
   if (userNameEl) userNameEl.textContent = user.name;
-  if (userRoleEl) userRoleEl.textContent = user.role;
-  if (userAvatarEl) userAvatarEl.textContent = user.initials || 'AQ';
+  if (userRoleEl) userRoleEl.textContent = user.roleTitle || user.role || 'Administrator';
+  if (userAvatarEl) userAvatarEl.textContent = user.avatar || user.initials || 'AQ';
 }
 
 /**
@@ -2423,7 +3007,7 @@ function setupNotifications() {
     if (!listContainer) return;
 
     if (notifs.length === 0) {
-      listContainer.innerHTML = '<li style="padding: 16px; text-align: center; color: var(--muted); font-size: 13px;">No notifications.</li>';
+      listContainer.innerHTML = '<li style="padding: 16px; text-align: center; color: var(--muted); font-size: 13px;">Xabarlar mavjud emas.</li>';
       return;
     }
 
@@ -2446,7 +3030,7 @@ function setupNotifications() {
     markReadBtn.addEventListener('click', () => {
       store.markAllNotificationsRead();
       renderNotifs();
-      showToast('Notifications', 'All notifications marked as read.', 'info');
+      showToast('Xabarnomalar', 'Barcha xabarlar o\'qildi deb belgilandi.', 'info');
     });
   }
 }
@@ -2459,48 +3043,44 @@ function setupSettingsModule() {
   const themeCards = document.querySelectorAll('.theme-card');
   const resetBtn = document.getElementById('reset-demo-data-btn');
 
-  // Profile Form
   if (profileForm) {
     profileForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('settings-name-input').value.trim();
       const email = document.getElementById('settings-email-input').value.trim();
-      const role = document.getElementById('settings-role-input').value.trim();
+      const roleTitle = document.getElementById('settings-role-input').value.trim();
 
       if (!name) {
-        showToast('Error', 'Please enter your name.', 'error');
+        showToast('Xatolik', 'Iltimos, ismingizni kiriting.', 'error');
         return;
       }
 
-      store.saveUser({ name, email, role });
+      store.saveUser({ name, email, roleTitle });
       setupUserDisplay();
-      showToast('Success', 'Profile settings updated successfully!', 'success');
+      showToast('Muvaffaqiyatli', 'Profil ma\'lumotlari saqlandi!', 'success');
     });
   }
 
-  // Theme Toggles
   themeCards.forEach(card => {
     card.addEventListener('click', () => {
       const selectedTheme = card.dataset.theme;
       themeCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
       store.setTheme(selectedTheme);
-      showToast('Theme Changed', `Switched to ${selectedTheme} theme.`, 'info');
+      showToast('Mavzu o\'zgardi', `${selectedTheme === 'dark' ? 'Dark Navy Neumorphism' : 'Soft Light Neumorphism'} faollashtirildi.`, 'info');
     });
   });
 
-  // Reset Demo Data
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       showConfirmModal({
-        title: 'Reset Demo Data',
-        message: 'This will restore all students, courses, charts, and profile settings to the default IT LIVE Academy demo state. Continue?',
-        confirmText: 'Reset Everything',
+        title: 'Demo ma\'lumotlarni tiklash',
+        message: 'Barcha talabalar, kurslar, uyga vazifalar va rollar boshlang\'ich holatga qaytariladi. Davom etasizmi?',
+        confirmText: 'Tiklash',
         confirmType: 'danger',
         onConfirm: () => {
           store.resetDemoData();
-          showToast('Data Reset', 'All data has been reset to defaults.', 'success');
-          // Reload view
+          showToast('Tiklandi', 'Tizim boshlang\'ich holatga qaytarildi.', 'success');
           window.location.hash = '#dashboard';
           handleRoute();
         }
@@ -2520,13 +3100,13 @@ function setupAnalyticsModule() {
       btn.classList.add('active');
       const days = parseInt(btn.dataset.days, 10);
       initAnalyticsCharts(days);
-      showToast('Analytics Updated', `Loaded analytics for last ${days} days.`, 'info');
+      showToast('Analitika', `So'nggi ${days} kunlik ma'lumotlar yuklandi.`, 'info');
     });
   });
 }
 
 /**
- * Setup Mock Authentication & Logout Flows
+ * Setup Authentication, Quick Role Login & Logout Flows
  */
 function setupAuth() {
   const loginScreen = document.getElementById('login-screen');
@@ -2542,10 +3122,8 @@ function setupAuth() {
     }
   };
 
-  // Check on boot
   checkAuth();
 
-  // Login form submit
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -2553,31 +3131,43 @@ function setupAuth() {
       const password = document.getElementById('login-password').value;
 
       if (!email || !password || password.length < 4) {
-        showToast('Authentication Error', 'Please enter a valid email and password (at least 4 characters).', 'error');
+        showToast('Kirishda xatolik', 'Email va parolni to\'g\'ri kiriting (kamida 4 ta belgi).', 'error');
         return;
       }
 
       store.setAuth(true);
       checkAuth();
-      showToast('Welcome Back', 'Logged in to IT LIVE Academy Dashboard.', 'success');
+      showToast('Xush kelibsiz', 'IT LIVE Academy tizimiga muvaffaqiyatli kirdingiz.', 'success');
       window.location.hash = '#dashboard';
       handleRoute();
     });
   }
 
-  // Logout triggers
+  // Quick Role Logins (Guest, Student, Mentor, Admin, Blocked)
+  document.querySelectorAll('[data-quick-role]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const role = btn.dataset.quickRole;
+      store.setAuth(true);
+      switchActiveRole(role);
+      checkAuth();
+      showToast('Kirish muvaffaqiyatli', `${btn.textContent.trim()} sifatida tizimga kirdingiz.`, 'success');
+      window.location.hash = role === 'admin' ? '#dashboard' : '#cabinet';
+      handleRoute();
+    });
+  });
+
   logoutButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       showConfirmModal({
-        title: 'Sign Out',
-        message: 'Are you sure you want to log out of IT LIVE Academy admin dashboard?',
-        confirmText: 'Log Out',
+        title: 'Tizimdan chiqish',
+        message: 'Haqiqatan ham IT LIVE Academy tizimidan chiqmoqchimisiz?',
+        confirmText: 'Chiqish',
         confirmType: 'danger',
         onConfirm: () => {
           store.setAuth(false);
           checkAuth();
-          showToast('Logged Out', 'You have been signed out.', 'info');
+          showToast('Chiqildi', 'Tizimdan chiqdingiz.', 'info');
         }
       });
     });

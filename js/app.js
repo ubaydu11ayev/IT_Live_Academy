@@ -1,14 +1,15 @@
 /* ==========================================================================
-   Application Entrypoint
+   Application Entrypoint (Neumorphic & 5 Roles Edition)
    IT LIVE Academy Admin Dashboard
    ========================================================================== */
 
 import { store } from './store.js';
-import { setupUIListeners, showToast, showConfirmModal, openModal, closeModal } from './ui.js';
+import { setupUIListeners, showToast, showConfirmModal } from './ui.js';
 import { initRouter, handleRoute } from './router.js';
 import { initStudentsModule, renderStudentsTable } from './students.js';
 import { initCoursesModule, renderCoursesGrid } from './courses.js';
 import { refreshAllCharts, initAnalyticsCharts } from './charts.js';
+import { initCabinetModule, switchActiveRole, updateTopbarRoleDisplay, applyRolePermissions } from './cabinet.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
@@ -23,6 +24,7 @@ function initializeApp() {
   setupUIListeners();
 
   // 3. Initialize feature modules
+  initCabinetModule();
   initStudentsModule();
   initCoursesModule();
   setupSettingsModule();
@@ -39,12 +41,11 @@ function initializeApp() {
 }
 
 /**
- * Sync UI when store changes (CRUD actions, theme, reset)
+ * Sync UI when store changes (CRUD actions, theme, role, reset)
  */
 function handleStoreChange(e) {
   const { key } = e.detail;
   if (key === 'students' || key === 'courses' || key === 'reset') {
-    // If on students or courses page, re-render
     if (window.location.hash === '#students') {
       renderStudentsTable();
     } else if (window.location.hash === '#courses') {
@@ -52,8 +53,10 @@ function handleStoreChange(e) {
     } else if (window.location.hash === '#dashboard') {
       handleRoute();
     }
-  } else if (key === 'user') {
+  } else if (key === 'user' || key === 'role') {
     setupUserDisplay();
+    updateTopbarRoleDisplay();
+    applyRolePermissions(store.getCurrentRole());
   } else if (key === 'theme') {
     refreshAllCharts();
   }
@@ -69,8 +72,8 @@ function setupUserDisplay() {
   const userAvatarEl = document.getElementById('topbar-user-avatar');
 
   if (userNameEl) userNameEl.textContent = user.name;
-  if (userRoleEl) userRoleEl.textContent = user.role;
-  if (userAvatarEl) userAvatarEl.textContent = user.initials || 'AQ';
+  if (userRoleEl) userRoleEl.textContent = user.roleTitle || user.role || 'Administrator';
+  if (userAvatarEl) userAvatarEl.textContent = user.avatar || user.initials || 'AQ';
 }
 
 /**
@@ -92,7 +95,7 @@ function setupNotifications() {
     if (!listContainer) return;
 
     if (notifs.length === 0) {
-      listContainer.innerHTML = '<li style="padding: 16px; text-align: center; color: var(--muted); font-size: 13px;">No notifications.</li>';
+      listContainer.innerHTML = '<li style="padding: 16px; text-align: center; color: var(--muted); font-size: 13px;">Xabarlar mavjud emas.</li>';
       return;
     }
 
@@ -115,7 +118,7 @@ function setupNotifications() {
     markReadBtn.addEventListener('click', () => {
       store.markAllNotificationsRead();
       renderNotifs();
-      showToast('Notifications', 'All notifications marked as read.', 'info');
+      showToast('Xabarnomalar', 'Barcha xabarlar o\'qildi deb belgilandi.', 'info');
     });
   }
 }
@@ -128,48 +131,44 @@ function setupSettingsModule() {
   const themeCards = document.querySelectorAll('.theme-card');
   const resetBtn = document.getElementById('reset-demo-data-btn');
 
-  // Profile Form
   if (profileForm) {
     profileForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('settings-name-input').value.trim();
       const email = document.getElementById('settings-email-input').value.trim();
-      const role = document.getElementById('settings-role-input').value.trim();
+      const roleTitle = document.getElementById('settings-role-input').value.trim();
 
       if (!name) {
-        showToast('Error', 'Please enter your name.', 'error');
+        showToast('Xatolik', 'Iltimos, ismingizni kiriting.', 'error');
         return;
       }
 
-      store.saveUser({ name, email, role });
+      store.saveUser({ name, email, roleTitle });
       setupUserDisplay();
-      showToast('Success', 'Profile settings updated successfully!', 'success');
+      showToast('Muvaffaqiyatli', 'Profil ma\'lumotlari saqlandi!', 'success');
     });
   }
 
-  // Theme Toggles
   themeCards.forEach(card => {
     card.addEventListener('click', () => {
       const selectedTheme = card.dataset.theme;
       themeCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
       store.setTheme(selectedTheme);
-      showToast('Theme Changed', `Switched to ${selectedTheme} theme.`, 'info');
+      showToast('Mavzu o\'zgardi', `${selectedTheme === 'dark' ? 'Dark Navy Neumorphism' : 'Soft Light Neumorphism'} faollashtirildi.`, 'info');
     });
   });
 
-  // Reset Demo Data
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       showConfirmModal({
-        title: 'Reset Demo Data',
-        message: 'This will restore all students, courses, charts, and profile settings to the default IT LIVE Academy demo state. Continue?',
-        confirmText: 'Reset Everything',
+        title: 'Demo ma\'lumotlarni tiklash',
+        message: 'Barcha talabalar, kurslar, uyga vazifalar va rollar boshlang\'ich holatga qaytariladi. Davom etasizmi?',
+        confirmText: 'Tiklash',
         confirmType: 'danger',
         onConfirm: () => {
           store.resetDemoData();
-          showToast('Data Reset', 'All data has been reset to defaults.', 'success');
-          // Reload view
+          showToast('Tiklandi', 'Tizim boshlang\'ich holatga qaytarildi.', 'success');
           window.location.hash = '#dashboard';
           handleRoute();
         }
@@ -189,13 +188,13 @@ function setupAnalyticsModule() {
       btn.classList.add('active');
       const days = parseInt(btn.dataset.days, 10);
       initAnalyticsCharts(days);
-      showToast('Analytics Updated', `Loaded analytics for last ${days} days.`, 'info');
+      showToast('Analitika', `So'nggi ${days} kunlik ma'lumotlar yuklandi.`, 'info');
     });
   });
 }
 
 /**
- * Setup Mock Authentication & Logout Flows
+ * Setup Authentication, Quick Role Login & Logout Flows
  */
 function setupAuth() {
   const loginScreen = document.getElementById('login-screen');
@@ -211,10 +210,8 @@ function setupAuth() {
     }
   };
 
-  // Check on boot
   checkAuth();
 
-  // Login form submit
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -222,31 +219,43 @@ function setupAuth() {
       const password = document.getElementById('login-password').value;
 
       if (!email || !password || password.length < 4) {
-        showToast('Authentication Error', 'Please enter a valid email and password (at least 4 characters).', 'error');
+        showToast('Kirishda xatolik', 'Email va parolni to\'g\'ri kiriting (kamida 4 ta belgi).', 'error');
         return;
       }
 
       store.setAuth(true);
       checkAuth();
-      showToast('Welcome Back', 'Logged in to IT LIVE Academy Dashboard.', 'success');
+      showToast('Xush kelibsiz', 'IT LIVE Academy tizimiga muvaffaqiyatli kirdingiz.', 'success');
       window.location.hash = '#dashboard';
       handleRoute();
     });
   }
 
-  // Logout triggers
+  // Quick Role Logins (Guest, Student, Mentor, Admin, Blocked)
+  document.querySelectorAll('[data-quick-role]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const role = btn.dataset.quickRole;
+      store.setAuth(true);
+      switchActiveRole(role);
+      checkAuth();
+      showToast('Kirish muvaffaqiyatli', `${btn.textContent.trim()} sifatida tizimga kirdingiz.`, 'success');
+      window.location.hash = role === 'admin' ? '#dashboard' : '#cabinet';
+      handleRoute();
+    });
+  });
+
   logoutButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       showConfirmModal({
-        title: 'Sign Out',
-        message: 'Are you sure you want to log out of IT LIVE Academy admin dashboard?',
-        confirmText: 'Log Out',
+        title: 'Tizimdan chiqish',
+        message: 'Haqiqatan ham IT LIVE Academy tizimidan chiqmoqchimisiz?',
+        confirmText: 'Chiqish',
         confirmType: 'danger',
         onConfirm: () => {
           store.setAuth(false);
           checkAuth();
-          showToast('Logged Out', 'You have been signed out.', 'info');
+          showToast('Chiqildi', 'Tizimdan chiqdingiz.', 'info');
         }
       });
     });
@@ -261,4 +270,3 @@ function escapeHtml(str = '') {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
-
