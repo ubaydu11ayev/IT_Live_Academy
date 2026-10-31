@@ -161,3 +161,4 @@ Double-click `index.html` directly to open via `file://`. The app includes a dua
   - Mobile (375px)
 - **Console Log**: `0 errors` verified through automated headless browser testing.
 
+# IT_Live_Academy
